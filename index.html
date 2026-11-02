@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="ko" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>star-candy | AI Engineer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class", // CSS class 기반 다크 모드 활성화
+        theme: {
+          extend: {
+            colors: {
+              // CSS 변수와 Tailwind Color 연결
+              "navy-text": "var(--color-navy-text)",
+              "navy-bg": "var(--color-navy-bg)",
+              "navy-hover": "var(--color-navy-hover)",
+              "bg-main": "var(--color-bg-main)",
+              "bg-sub": "var(--color-bg-sub)",
+              "card-bg": "var(--color-card-bg)",
+              "text-main": "var(--color-text-main)",
+              "text-strong": "var(--color-text-strong)",
+              "text-muted": "var(--color-text-muted)",
+              "border-main": "var(--color-border)",
+              "btn-text": "var(--color-btn-text)",
+            },
+            fontFamily: {
+              sans: ["Inter", "system-ui", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* CSS 변수(Variables) 정의 */
+      :root {
+        --color-navy-text: #1a365d; /* 강조용 남색 텍스트 */
+        --color-navy-bg: #1a365d; /* 버튼 및 연락 섹션 배경 */
+        --color-navy-hover: #2b4c7e;
+        --color-bg-main: #ffffff; /* 기본 배경 */
+        --color-bg-sub: #f9fafb; /* 서브 섹션 배경 */
+        --color-card-bg: #ffffff; /* 카드 배경 */
+        --color-text-main: #333333; /* 기본 본문 텍스트 */
+        --color-text-strong: #111827; /* 제목 등 강한 텍스트 */
+        --color-text-muted: #4b5563; /* 부가 설명 텍스트 */
+        --color-border: #f3f4f6; /* 테두리 색상 */
+        --color-btn-text: #ffffff; /* 버튼 내 텍스트 */
+      }
+
+      /* 다크 모드 시 CSS 변수 반전 적용 */
+      html.dark {
+        --color-navy-text: #93c5fd; /* 어두운 배경에서 잘 보이는 밝은 파란색 계열 */
+        --color-navy-bg: #1e3a8a; /* 짙은 파란색 배경 유지 */
+        --color-navy-hover: #1e40af;
+        --color-bg-main: #111827; /* 어두운 기본 배경 */
+        --color-bg-sub: #1f2937; /* 어두운 서브 섹션 배경 */
+        --color-card-bg: #374151; /* 어두운 카드 배경 */
+        --color-text-main: #d1d5db; /* 밝은 본문 텍스트 */
+        --color-text-strong: #f9fafb; /* 매우 밝은 제목 텍스트 */
+        --color-text-muted: #9ca3af; /* 밝은 부가 설명 텍스트 */
+        --color-border: #4b5563; /* 어두운 테두리 색상 */
+        --color-btn-text: #ffffff;
+      }
+
+      body {
+        font-size: 16px; /* 본문 16px 이상 보장 */
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-bg-main text-text-main antialiased transition-colors duration-300"
+  >
+    <!-- 다크 모드 전환 토글 버튼 -->
+    <div class="fixed top-4 right-4 z-50">
+      <button
+        id="theme-toggle"
+        class="w-12 h-12 flex items-center justify-center rounded-full bg-bg-sub border border-border-main shadow-md hover:shadow-lg transition-all text-xl"
+        aria-label="Toggle Dark Mode"
+      >
+        <span id="theme-icon">🌙</span>
+      </button>
+    </div>
+
+    <!-- 1. Hero (첫 화면) -->
+    <header
+      class="min-h-screen flex flex-col justify-center items-center text-center px-6 bg-bg-sub transition-colors duration-300"
+    >
+      <div class="max-w-4xl mx-auto flex flex-col items-center">
+        <h1
+          class="text-4xl md:text-5xl font-extrabold text-navy-text mb-6 tracking-tight transition-colors duration-300"
+        >
+          star-candy
+        </h1>
+        <h2
+          class="text-xl md:text-2xl font-bold text-text-strong mb-4 break-keep transition-colors duration-300"
+        >
+          웹부터 AI 최적화까지 아우른 경험으로, 한계 없이 신기술을 도입할 AI
+          엔지니어
+        </h2>
+        <p
+          class="text-lg md:text-xl text-text-muted mb-10 break-keep transition-colors duration-300"
+        >
+          웹부터 AI 최적화까지 아우른 경험으로, 한계 없이 신기술을 도입할 AI
+          엔지니어
+        </p>
+        <a
+          href="#projects"
+          class="inline-block bg-navy-bg hover:bg-navy-hover text-btn-text font-semibold py-4 px-8 rounded-full transition duration-300 shadow-lg hover:shadow-xl text-lg"
+        >
+          결과물 보기
+        </a>
+      </div>
+    </header>
+
+    <!-- 2. About (소개) -->
+    <section id="about" class="py-20 px-6">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2
+          class="text-3xl font-bold text-navy-text mb-8 transition-colors duration-300"
+        >
+          소개
+        </h2>
+        <div
+          class="bg-bg-sub border border-border-main rounded-2xl p-8 shadow-sm inline-block min-w-[300px] transition-colors duration-300"
+        >
+          <ul
+            class="text-lg md:text-xl font-medium text-text-strong space-y-4 transition-colors duration-300"
+          >
+            <li>소프트웨어학부</li>
+            <li>관심 분야 : AI 개발</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Skills (역량) -->
+    <section
+      id="skills"
+      class="py-20 px-6 bg-bg-sub border-y border-border-main transition-colors duration-300"
+    >
+      <div class="max-w-6xl mx-auto">
+        <h2
+          class="text-3xl font-bold text-navy-text mb-12 text-center transition-colors duration-300"
+        >
+          핵심 역량
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Card 1 -->
+          <div
+            class="bg-card-bg p-8 rounded-2xl shadow-md border border-border-main hover:shadow-lg transition-all duration-300 flex flex-col justify-center"
+          >
+            <p
+              class="text-lg font-medium text-text-strong break-keep transition-colors duration-300"
+            >
+              새로운 기술이 등장해도 두려워하지 않는다.<br />
+              <span
+                class="text-base text-text-muted mt-3 block transition-colors duration-300"
+                >(처음보는 양자화 기술임에도 결국 적용하여 성능을 개선함.)</span
+              >
+            </p>
+          </div>
+
+          <!-- Card 2 -->
+          <div
+            class="bg-card-bg p-8 rounded-2xl shadow-md border border-border-main hover:shadow-lg transition-all duration-300 flex flex-col justify-center"
+          >
+            <p
+              class="text-lg font-medium text-text-strong break-keep transition-colors duration-300"
+            >
+              어려운 개념이 있더라도 포기하지 않는다.<br />
+              <span
+                class="text-base text-text-muted mt-3 block transition-colors duration-300"
+                >(군대에서 처음보는 가상서버 기능을 어떻게든 구성해낸
+                경험)</span
+              >
+            </p>
+          </div>
+
+          <!-- Card 3 -->
+          <div
+            class="bg-card-bg p-8 rounded-2xl shadow-md border border-border-main hover:shadow-lg transition-all duration-300 flex flex-col justify-center"
+          >
+            <p
+              class="text-lg font-medium text-text-strong break-keep transition-colors duration-300"
+            >
+              보안의 중요성을 아는 엔지니어다.<br />
+              <span
+                class="text-base text-text-muted mt-3 block transition-colors duration-300"
+                >(시스템, 웹 보안에 대한 보고서를 작성해본 경험)</span
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Projects (결과물) -->
+    <section id="projects" class="py-24 px-6">
+      <div class="max-w-6xl mx-auto">
+        <h2
+          class="text-3xl font-bold text-navy-text mb-12 text-center transition-colors duration-300"
+        >
+          결과물 허브
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Project 1 -->
+          <div
+            class="bg-card-bg rounded-2xl shadow-md border border-border-main overflow-hidden hover:shadow-xl transition-all duration-300 p-8 flex flex-col"
+          >
+            <h3
+              class="text-xl font-bold text-navy-text mb-6 border-b border-border-main pb-4 transition-colors duration-300"
+            >
+              Day 2 결과물 자리
+            </h3>
+            <div
+              class="space-y-4 text-base text-text-main flex-grow transition-colors duration-300"
+            >
+              <p>
+                <strong class="text-text-strong transition-colors duration-300"
+                  >문제:</strong
+                >
+              </p>
+              <p>
+                <strong class="text-text-strong transition-colors duration-300"
+                  >내가 한 일:</strong
+                >
+              </p>
+              <p>
+                <strong class="text-text-strong transition-colors duration-300"
+                  >사용 기술:</strong
+                >
+              </p>
+              <p>
+                <strong class="text-text-strong transition-colors duration-300"
+                  >결과:</strong
+                >
+              </p>
+            </div>
+          </div>
+
+          <!-- Project 2 -->
+          <div
+            class="bg-card-bg rounded-2xl shadow-md border border-border-main overflow-hidden hover:shadow-xl transition-all duration-300 p-8 flex flex-col"
+          >
+            <h3
+              class="text-xl font-bold text-navy-text mb-6 border-b border-border-main pb-4 transition-colors duration-300"
+            >
+              Day 3 결과물 자리
+            </h3>
+            <div
+              class="space-y-4 text-base text-text-main flex-grow transition-colors duration-300"
+            >
+              <p>
+                <strong class="text-text-strong transition-colors duration-300"
+                  >문제:</strong
+                >
+              </p>
+              <p>
+                <strong class="text-text-strong transition-colors duration-300"
+                  >내가 한 일:</strong
+                >
+              </p>
+              <p>
+                <strong class="text-text-strong transition-colors duration-300"
+                  >사용 기술:</strong
+                >
+              </p>
+              <p>
+                <strong class="text-text-strong transition-colors duration-300"
+                  >결과:</strong
+                >
+              </p>
+            </div>
+          </div>
+
+          <!-- Project 3 -->
+          <div
+            class="bg-card-bg rounded-2xl shadow-md border border-border-main overflow-hidden hover:shadow-xl transition-all duration-300 p-8 flex flex-col"
+          >
+            <h3
+              class="text-xl font-bold text-navy-text mb-6 border-b border-border-main pb-4 transition-colors duration-300"
+            >
+              Day 4 결과물 자리
+            </h3>
+            <div
+              class="space-y-4 text-base text-text-main flex-grow transition-colors duration-300"
+            >
+              <p>
+                <strong class="text-text-strong transition-colors duration-300"
+                  >문제:</strong
+                >
+              </p>
+              <p>
+                <strong class="text-text-strong transition-colors duration-300"
+                  >내가 한 일:</strong
+                >
+              </p>
+              <p>
+                <strong class="text-text-strong transition-colors duration-300"
+                  >사용 기술:</strong
+                >
+              </p>
+              <p>
+                <strong class="text-text-strong transition-colors duration-300"
+                  >결과:</strong
+                >
+              </p>
+            </div>
+          </div>
+
+          <!-- Project 4 -->
+          <div
+            class="bg-card-bg rounded-2xl shadow-md border border-border-main overflow-hidden hover:shadow-xl transition-all duration-300 p-8 flex flex-col"
+          >
+            <h3
+              class="text-xl font-bold text-navy-text mb-6 border-b border-border-main pb-4 transition-colors duration-300"
+            >
+              Day 5 결과물 자리
+            </h3>
+            <div
+              class="space-y-4 text-base text-text-main flex-grow transition-colors duration-300"
+            >
+              <p>
+                <strong class="text-text-strong transition-colors duration-300"
+                  >문제:</strong
+                >
+              </p>
+              <p>
+                <strong class="text-text-strong transition-colors duration-300"
+                  >내가 한 일:</strong
+                >
+              </p>
+              <p>
+                <strong class="text-text-strong transition-colors duration-300"
+                  >사용 기술:</strong
+                >
+              </p>
+              <p>
+                <strong class="text-text-strong transition-colors duration-300"
+                  >결과:</strong
+                >
+              </p>
+            </div>
+          </div>
+
+          <!-- Project 5 -->
+          <div
+            class="bg-card-bg rounded-2xl shadow-md border border-border-main overflow-hidden hover:shadow-xl transition-all duration-300 p-8 flex flex-col md:col-start-2"
+          >
+            <h3
+              class="text-xl font-bold text-navy-text mb-6 border-b border-border-main pb-4 transition-colors duration-300"
+            >
+              Day 6 결과물 자리
+            </h3>
+            <div
+              class="space-y-4 text-base text-text-main flex-grow transition-colors duration-300"
+            >
+              <p>
+                <strong class="text-text-strong transition-colors duration-300"
+                  >문제:</strong
+                >
+              </p>
+              <p>
+                <strong class="text-text-strong transition-colors duration-300"
+                  >내가 한 일:</strong
+                >
+              </p>
+              <p>
+                <strong class="text-text-strong transition-colors duration-300"
+                  >사용 기술:</strong
+                >
+              </p>
+              <p>
+                <strong class="text-text-strong transition-colors duration-300"
+                  >결과:</strong
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Contact (연락) -->
+    <section
+      id="contact"
+      class="py-24 px-6 bg-navy-bg text-btn-text text-center transition-colors duration-300"
+    >
+      <div class="max-w-3xl mx-auto flex flex-col items-center">
+        <h2 class="text-3xl font-bold mb-6">연락하기</h2>
+        <p class="text-lg mb-8 text-gray-300 dark:text-gray-400">
+          새로운 기술을 향한 도전에 함께할 기회를 기다립니다.
+        </p>
+
+        <!-- 추가된 이메일 텍스트 노출부 -->
+        <p class="text-xl md:text-2xl font-bold mb-10 tracking-wide">
+          el0710@naver.com
+        </p>
+
+        <a
+          href="mailto:el0710@naver.com"
+          class="inline-block bg-bg-main text-navy-text font-bold py-4 px-10 rounded-full transition duration-300 shadow-lg hover:shadow-xl hover:opacity-90 text-lg"
+        >
+          이메일 보내기
+        </a>
+      </div>
+    </section>
+
+    <!-- 다크 모드 제어 스크립트 -->
+    <script>
+      const themeToggleBtn = document.getElementById("theme-toggle");
+      const themeIcon = document.getElementById("theme-icon");
+      const htmlElement = document.documentElement;
+
+      // 초기 로드 시 시스템 설정 또는 저장된 테마 확인
+      if (
+        localStorage.getItem("theme") === "dark" ||
+        (!("theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        htmlElement.classList.add("dark");
+        themeIcon.textContent = "☀️";
+      } else {
+        htmlElement.classList.remove("dark");
+        themeIcon.textContent = "🌙";
+      }
+
+      // 토글 버튼 클릭 이벤트
+      themeToggleBtn.addEventListener("click", () => {
+        htmlElement.classList.toggle("dark");
+        if (htmlElement.classList.contains("dark")) {
+          localStorage.setItem("theme", "dark");
+          themeIcon.textContent = "☀️";
+        } else {
+          localStorage.setItem("theme", "light");
+          themeIcon.textContent = "🌙";
+        }
+      });
+    </script>
+  </body>
+</html>
