@@ -1,0 +1,271 @@
+/* ==========================================
+   CSS Variables & Theming (CSS 변수 및 테마 설정)
+========================================== */
+:root { /* 전역 변수 선언: 기본(라이트 모드) 테마에 사용될 색상 및 속성 정의 */
+    --bg-color: #ffffff; /* 웹사이트 기본 배경색 (순백색) */
+    --bg-light: #f4f7f6; /* 섹션을 시각적으로 구분하기 위한 옅은 회경색 */
+    --text-color: #333333; /* 기본 텍스트 색상 (짙은 회색) */
+    --primary-color: #2563eb; /* 주요 강조 색상 (브랜드 컬러인 파란색) */
+    --secondary-color: #475569; /* 보조 색상 (연한 글씨나 서브 버튼 등에 사용되는 청회색) */
+    --nav-bg: rgba(255, 255, 255, 0.95); /* 네비게이션 바 배경색 (95% 불투명도의 흰색으로 뒤가 살짝 비침) */
+    --card-bg: #ffffff; /* 카드 컴포넌트의 배경색 */
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); /* 카드 컴포넌트에 적용될 기본 그림자 효과 */
+    --error-color: #ef4444; /* 에러 메시지나 유효성 검사 실패 시 사용할 붉은색 */
+    --success-color: #10b981; /* 성공 메시지에 사용할 초록색 */
+    --border-color: #e2e8f0; /* 카드나 폼 요소의 테두리 색상 */
+}
+
+[data-theme="dark"] { /* HTML 최상위 태그에 data-theme="dark"가 추가되었을 때 덮어쓸 변수들 (다크 모드) */
+    --bg-color: #0f172a; /* 다크 모드 기본 배경색 (어두운 남색) */
+    --bg-light: #1e293b; /* 다크 모드용 섹션 구분 배경색 */
+    --text-color: #f8fafc; /* 다크 모드 기본 텍스트 색상 (밝은 회백색) */
+    --nav-bg: rgba(15, 23, 42, 0.95); /* 다크 모드 네비게이션 배경색 (95% 불투명) */
+    --card-bg: #1e293b; /* 다크 모드 카드 배경색 */
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5); /* 다크 모드에서는 그림자를 더 진하게 하여 입체감 유지 */
+    --border-color: #334155; /* 다크 모드 테두리 색상 (어두운 회색) */
+}
+
+/* ==========================================
+   Base Styles (기본 스타일 및 초기화)
+========================================== */
+* { /* 모든 HTML 요소와 가상 요소에 적용되는 리셋 설정 */
+    margin: 0; /* 브라우저 기본 바깥 여백 제거 */
+    padding: 0; /* 브라우저 기본 안쪽 여백 제거 */
+    box-sizing: border-box; /* 요소의 전체 크기(width/height)에 padding과 border를 포함시킴 (크기 계산 용이) */
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; /* OS 기본 폰트를 우선 적용하여 최적의 가독성 제공 */
+    background-color: var(--bg-color); /* 위에서 정의한 변수를 가져와 배경색 적용 */
+    color: var(--text-color); /* 위에서 정의한 변수를 가져와 텍스트 색상 적용 */
+    line-height: 1.6; /* 텍스트 줄 간격을 1.6배로 설정하여 가독성 향상 */
+    transition: background-color 0.3s, color 0.3s; /* 다크 모드 전환 시 배경과 글자색이 0.3초 동안 부드럽게 변하도록 애니메이션 적용 */
+}
+
+a { text-decoration: none; color: inherit; } /* 링크(a 태그)의 기본 밑줄을 제거하고, 글자색은 부모 요소의 색상을 따라가도록 설정 */
+li { list-style: none; } /* 목록(li 태그)의 기본 불릿 기호(점 등) 제거 */
+
+.container {
+    width: 90%; /* 화면 너비의 90%만 차지하도록 하여 좌우 여백 확보 */
+    max-width: 1200px; /* 컨테이너가 넓어져도 최대 1200px까지만 커지도록 제한 */
+    margin: 0 auto; /* 상하 여백은 0, 좌우 여백은 자동으로 분배하여 컨테이너를 화면 중앙에 정렬 */
+}
+
+.section { padding: 5rem 0; } /* 각 섹션(영역)의 위아래에 5rem(약 80px)의 여백을 주어 공간감 확보 */
+.bg-light { background-color: var(--bg-light); } /* 배경을 약간 다른 색으로 구분할 때 사용하는 유틸리티 클래스 */
+
+/* ==========================================
+   Header & Navigation (Flexbox) (상단 헤더 및 네비게이션)
+========================================== */
+#header {
+    position: fixed; /* 헤더를 화면 상단에 고정하여 스크롤해도 따라다니도록 설정 */
+    top: 0; width: 100%; /* 화면 최상단에 붙이고, 너비를 화면 전체(100%)로 설정 */
+    background-color: transparent; /* 초기 배경색은 투명하게 설정 */
+    transition: background-color 0.3s, box-shadow 0.3s; /* 스크롤 시 배경색과 그림자가 부드럽게 생기도록 전환 효과 부여 */
+    z-index: 1000; /* 다른 요소들보다 항상 위에 표시되도록 렌더링 우선순위를 높게 설정 */
+}
+
+#header.scrolled { /* 사용자가 스크롤을 내렸을 때 자바스크립트로 추가되는 클래스 */
+    background-color: var(--nav-bg); /* 스크롤 시 배경색을 불투명하게 채움 */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* 헤더 아래에 옅은 그림자를 주어 페이지 내용과 구분되게 함 */
+}
+
+.navbar {
+    display: flex; /* 내부 요소들을 가로로 배치하기 위해 Flexbox 활성화 */
+    justify-content: space-between; /* 로고는 왼쪽 끝, 메뉴는 오른쪽 끝으로 양 끝 배치 */
+    align-items: center; /* 내부 요소들의 세로 중앙 정렬 */
+    padding: 1rem 0; /* 위아래로 1rem(약 16px)의 패딩 부여 */
+}
+
+.logo a {
+    font-size: 1.5rem; /* 로고 글자 크기 지정 */
+    font-weight: bold; /* 로고 글자를 굵게 처리 */
+    color: var(--primary-color); /* 로고 색상을 브랜드 테마 색상으로 지정 */
+}
+
+.nav-menu {
+    display: flex; /* 네비게이션 메뉴 항목들을 가로로 배치 */
+    gap: 2rem; /* 각 메뉴 항목 사이에 2rem(약 32px)의 간격 띄움 */
+}
+
+.nav-controls {
+    display: flex; /* 다크모드 버튼과 햄버거 버튼을 가로로 묶기 위한 설정 */
+    align-items: center; /* 세로 중앙 정렬 */
+    gap: 1rem; /* 컨트롤 버튼들 사이의 간격을 1rem으로 설정 */
+}
+
+.theme-toggle, .hamburger {
+    background: none; /* 버튼의 기본 배경색 제거 */
+    border: none; /* 버튼의 기본 테두리 제거 */
+    cursor: pointer; /* 마우스를 올렸을 때 클릭 가능한 포인터(손가락) 모양으로 변경 */
+    font-size: 1.5rem; /* 버튼 아이콘의 크기 설정 */
+    color: var(--text-color); /* 현재 테마에 맞는 텍스트 색상 적용 */
+}
+
+.hamburger { display: none; } /* 데스크톱 화면에서는 햄버거 메뉴 버튼을 숨김 */
+.hamburger .bar {
+    display: block; width: 25px; height: 3px; /* 햄버거 메뉴를 구성하는 가로선 3개의 크기 지정 */
+    margin: 5px auto; background-color: var(--text-color); /* 가로선 사이의 간격과 색상 지정 */
+    transition: all 0.3s ease; /* 햄버거 버튼이 X 모양으로 변할 때 부드럽게 움직이도록 애니메이션 속성 부여 */
+}
+
+/* ==========================================
+   Layouts & Components (Grid) (레이아웃 및 주요 컴포넌트)
+========================================== */
+.hero-content {
+    text-align: center; /* Hero(메인 배너) 섹션의 글자 및 내용을 가운데 정렬 */
+    padding-top: 6rem; /* 헤더에 가려지지 않도록 위쪽에 넉넉한 여백 부여 */
+}
+.hero-content h1 { font-size: 2.5rem; margin-bottom: 1rem; } /* 메인 타이틀의 크기를 키우고 아래 요소와 띄움 */
+
+.about-grid, .grid-container {
+    display: grid; /* 반응형 바둑판(Grid) 레이아웃 활성화 */
+    /* 반응형 핵심: 화면 공간이 허락하는 한 카드를 넣고, 각 카드는 최소 300px에서 최대 가능한 크기(1fr)로 유연하게 늘어남 */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 2rem; /* 그리드 항목(카드)들 사이에 위아래, 좌우 2rem 간격 설정 */
+    margin-top: 2rem; /* 상단 제목 등과 띄우기 위한 여백 */
+}
+
+.about-card, .card {
+    background: var(--card-bg); /* 카드 배경색 지정 (다크모드 지원) */
+    padding: 2rem; /* 카드 내부의 여백을 넉넉히 설정 */
+    border-radius: 8px; /* 카드의 모서리를 둥글게 깎음 (8px) */
+    border: 1px solid var(--border-color); /* 테마에 맞는 얇은 테두리 부여 */
+    box-shadow: var(--card-shadow); /* 카드가 살짝 떠보이는 입체적 그림자 부여 */
+    transition: transform 0.3s, box-shadow 0.3s; /* 마우스를 올렸을 때(hover) 부드럽게 변하도록 전환 효과 설정 */
+}
+
+.card:hover {
+    transform: translateY(-5px); /* 마우스를 올리면 카드가 위로 5px 떠오름 */
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); /* 떠오를 때 그림자를 더 넓고 진하게 하여 강조 효과 줌 */
+}
+
+.card ul { margin-top: 1rem; padding-left: 1.2rem; } /* 카드 내 목록(경험 등)의 들여쓰기 및 여백 조정 */
+.card li { margin-bottom: 0.5rem; font-size: 0.95rem; } /* 목록 각 항목 간의 여백과 글자 크기 미세 조정 */
+
+
+/* ==========================================
+   About Section & Profile Image Layout (자기소개 및 프로필 이미지 레이아웃)
+========================================== */
+.about-wrapper {
+    display: flex; /* 프로필 이미지와 소개 카드를 묶기 위해 Flexbox 사용 */
+    flex-direction: column; /* 모바일 우선: 요소들을 세로(위아래)로 배치 */
+    align-items: center; /* 자식 요소들을 가로 중앙에 정렬 */
+    gap: 3rem; /* 이미지와 소개 카드 사이의 간격을 3rem으로 띄움 */
+    margin-top: 2rem; /* 전체 블록과 섹션 제목 사이의 간격 */
+}
+
+.profile-image-container {
+    flex-shrink: 0; /* 공간이 부족해져도 프로필 이미지 컨테이너가 찌그러지거나 축소되지 않도록 보호 */
+}
+
+.profile-image-container img {
+    width: 250px; /* 프로필 사진의 가로 크기 고정 */
+    height: 250px; /* 프로필 사진의 세로 크기 고정 (완벽한 정사각형 유지) */
+    object-fit: cover; /* 원본 비율이 달라도 지정된 사이즈 안에 꽉 차게 이미지를 잘라내서 맞춤 */
+    border-radius: 50%; /* 50%의 둥글기를 주어 완벽한 원형 프로필로 만듦 */
+    box-shadow: var(--card-shadow); /* 이미지에 그림자를 주어 입체감 부여 */
+    border: 4px solid var(--border-color); /* 테마에 맞는 테두리 선 굵게(4px) 추가 */
+    transition: transform 0.3s ease; /* 마우스 호버 시 크기 변화를 부드럽게 처리 */
+}
+
+.profile-image-container img:hover {
+    transform: scale(1.05); /* 마우스를 올리면 사진이 5% 살짝 확대되어 상호작용성 강화 */
+}
+
+.about-details {
+    width: 100%; /* 소개 카드 영역이 가능한 넓은 너비를 사용하도록 설정 */
+}
+
+/* ==========================================
+   Responsive (Desktop Overrides) (데스크톱 화면을 위한 반응형 덮어쓰기)
+========================================== */
+@media (min-width: 850px) { /* 브라우저 창 너비가 850px 이상(데스크톱/태블릿 가로)일 때만 아래 스타일 적용 */
+    .about-wrapper {
+        flex-direction: row; /* 이미지와 카드를 세로 배치에서 가로(좌우) 배치로 변경 */
+        align-items: center; /* 가로 배치 시 세로 중앙을 맞춤 */
+    }
+    
+    .about-grid {
+        margin-top: 0; /* 가로 배치 시에는 그리드 상단의 불필요한 여백을 제거하여 밸런스 조정 */
+    }
+}
+
+
+/* ==========================================
+   Forms & Buttons (문의 폼 및 버튼 스타일)
+========================================== */
+.contact-form {
+    max-width: 600px; /* 폼이 모니터 화면 전체로 너무 넓어지지 않게 600px로 제한 */
+    margin: 2rem auto 0; /* 위쪽 2rem 띄우고 좌우 여백을 auto로 설정하여 가운데 정렬 */
+}
+
+.form-group { margin-bottom: 1.5rem; } /* 각 입력 칸(이름, 이메일 등) 세트 간의 간격을 띄움 */
+.form-group label { display: block; margin-bottom: 0.5rem; font-weight: bold; } /* 라벨(이름표)을 블록 요소로 만들어 입력칸 위로 올리고 굵게 처리 */
+
+input, textarea {
+    width: 100%; padding: 0.75rem; /* 입력 필드가 가로 공간을 100% 채우고, 넉넉한 내부 여백 가짐 */
+    border: 1px solid var(--border-color); /* 테마 변수를 활용한 1px 테두리 설정 */
+    border-radius: 4px; background: var(--bg-color); color: var(--text-color); /* 모서리 둥글게, 입력창 배경 및 글자색을 테마에 맞춤 */
+    font-family: inherit; /* 입력 필드의 폰트가 페이지 기본 폰트와 같아지도록 상속 */
+}
+
+.error-msg { 
+    color: var(--error-color); /* 유효성 실패 시 경고용 붉은색 글씨 지정 */
+    font-size: 0.85rem; /* 본문 텍스트보다 살짝 작은 크기 설정 */
+    margin-top: 0.5rem; /* 입력칸과 에러 메시지 사이 띄움 */
+    display: block; /* 평상시(클래스 존재 시) 블록 요소로 자리 차지 */
+}
+.success-msg { color: var(--success-color); margin-top: 1rem; font-weight: bold; text-align: center; } /* 전송 성공 메시지 스타일 (초록색, 가운데 정렬) */
+.hidden { display: none !important; } /* JS에서 이 클래스를 붙이면 요소를 화면에서 완벽하게 숨김 (최우선 적용) */
+
+.btn {
+    display: inline-block; padding: 0.75rem 1.5rem; /* 버튼을 텍스트 흐름에 맞추면서 넉넉한 내부 여백 지정 */
+    border: none; border-radius: 4px; cursor: pointer; /* 기본 테두리 제거, 모서리 둥글게, 클릭 손가락 커서 지정 */
+    font-weight: bold; transition: opacity 0.3s; margin-top: 1rem; /* 굵은 글씨, 투명도 애니메이션, 상단 여백 설정 */
+}
+.btn-primary { background: var(--primary-color); color: #fff; } /* 핵심 동작 버튼(전송 등)에 브랜드 파란색 배경과 흰 글씨 적용 */
+.btn-secondary { background: var(--secondary-color); color: #fff; } /* 보조 동작 버튼에 회색 계열 배경 적용 */
+.btn:hover { opacity: 0.9; } /* 버튼에 마우스를 올렸을 때 살짝 투명해지며 눌린듯한 느낌 제공 */
+
+#scroll-top {
+    position: fixed; bottom: 2rem; right: 2rem; /* 화면 우측 하단에 고정 배치 */
+    width: 3rem; height: 3rem; border-radius: 50%; /* 가로세로 똑같이 맞추고 50% 둥글게 하여 완벽한 동그라미 생성 */
+    background: var(--primary-color); color: #fff; /* 배경은 포인트 컬러, 아이콘은 흰색 */
+    border: none; cursor: pointer; z-index: 999; /* 테두리 제거 및 다른 컨텐츠 위로 올라오게 z-index 설정 */
+    font-size: 1.2rem; display: flex; align-items: center; justify-content: center; /* 내부 화살표를 정중앙에 위치시킴 */
+}
+/* ==========================================
+   Animations (스크롤 및 등장 애니메이션)
+========================================== */
+.fade-in { 
+    opacity: 0; transform: translateY(30px); /* 초기 상태: 화면에서 안 보이고, 원래 위치보다 30px 아래로 내려가 있음 */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* 상태가 변할 때 0.6초 동안 부드럽게 감속하며 나타나도록 설정 */
+}
+.fade-in.visible { 
+    opacity: 1; transform: translateY(0); /* JS에서 .visible 클래스를 붙이면 투명도가 100%가 되고 원래 위치(0)로 돌아옴 */
+}
+
+/* ==========================================
+   Responsive (Mobile First Overrides) (모바일 대응 반응형 미디어 쿼리)
+========================================== */
+@media (max-width: 768px) { /* 브라우저 화면 너비가 768px 이하(모바일 및 작은 태블릿)일 때만 적용되는 스타일 */
+    .nav-menu {
+        position: absolute; top: 100%; left: -100%; /* 메뉴를 헤더 바로 아래에 배치하되, 화면 왼쪽 바깥(-100%)으로 밀어 숨겨둠 */
+        flex-direction: column; width: 100%; /* 메뉴 항목들을 세로로 나열하고, 화면 꽉 차게 넓힘 */
+        background-color: var(--nav-bg); text-align: center; /* 배경을 채우고 글자를 가운데 정렬 */
+        transition: 0.3s; padding: 2rem 0; gap: 1.5rem; /* 나타날 때 0.3초 애니메이션 부여, 내부 여백 조정 */
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* 메뉴 박스 아래에 그림자를 주어 페이지와 분리함 */
+    }
+    .nav-menu.active { left: 0; } /* 자바스크립트로 .active가 추가되면 메뉴가 화면 안(0 위치)으로 슬라이드 인(등장) 함 */
+    
+    .hamburger { display: block; } /* 데스크톱에서는 숨겼던 햄버거 메뉴 버튼을 모바일에서 표시 */
+    
+    /* 햄버거 버튼이 클릭되어 .active 상태가 되었을 때의 (X 모양) 애니메이션 */
+    .hamburger.active .bar:nth-child(2) { opacity: 0; } /* 가운데 줄(2번째)을 투명하게 숨김 */
+    .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); } /* 첫번째 줄을 아래로 내리고 45도 기울임 */
+    .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); } /* 세번째 줄을 위로 올리고 반대로 45도 기울여서 X자를 만듦 */
+}
+
+footer { padding: 2rem 0; text-align: center; background-color: var(--bg-light); border-top: 1px solid var(--border-color); } /* 푸터의 여백, 텍스트 정렬 및 상단 경계선 디자인 */
+.footer-content { display: flex; flex-direction: column; gap: 1rem; } /* 푸터 내용들을 세로로 쌓고 1rem 간격으로 정렬 */

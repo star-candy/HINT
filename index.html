@@ -1,444 +1,381 @@
 <!doctype html>
-<html lang="ko" class="scroll-smooth">
+<html lang="ko">
   <head>
+    <!-- 웹 페이지 관련 설정 태그-->
     <meta charset="UTF-8" />
+    <!-- 웹 페이지 추가 정보 제공 meta 태그-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>star-candy | AI Engineer Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        darkMode: "class", // CSS class 기반 다크 모드 활성화
-        theme: {
-          extend: {
-            colors: {
-              // CSS 변수와 Tailwind Color 연결
-              "navy-text": "var(--color-navy-text)",
-              "navy-bg": "var(--color-navy-bg)",
-              "navy-hover": "var(--color-navy-hover)",
-              "bg-main": "var(--color-bg-main)",
-              "bg-sub": "var(--color-bg-sub)",
-              "card-bg": "var(--color-card-bg)",
-              "text-main": "var(--color-text-main)",
-              "text-strong": "var(--color-text-strong)",
-              "text-muted": "var(--color-text-muted)",
-              "border-main": "var(--color-border)",
-              "btn-text": "var(--color-btn-text)",
-            },
-            fontFamily: {
-              sans: ["Inter", "system-ui", "sans-serif"],
-            },
-          },
-        },
-      };
-    </script>
-    <style>
-      /* CSS 변수(Variables) 정의 */
-      :root {
-        --color-navy-text: #1a365d; /* 강조용 남색 텍스트 */
-        --color-navy-bg: #1a365d; /* 버튼 및 연락 섹션 배경 */
-        --color-navy-hover: #2b4c7e;
-        --color-bg-main: #ffffff; /* 기본 배경 */
-        --color-bg-sub: #f9fafb; /* 서브 섹션 배경 */
-        --color-card-bg: #ffffff; /* 카드 배경 */
-        --color-text-main: #333333; /* 기본 본문 텍스트 */
-        --color-text-strong: #111827; /* 제목 등 강한 텍스트 */
-        --color-text-muted: #4b5563; /* 부가 설명 텍스트 */
-        --color-border: #f3f4f6; /* 테두리 색상 */
-        --color-btn-text: #ffffff; /* 버튼 내 텍스트 */
-      }
-
-      /* 다크 모드 시 CSS 변수 반전 적용 */
-      html.dark {
-        --color-navy-text: #93c5fd; /* 어두운 배경에서 잘 보이는 밝은 파란색 계열 */
-        --color-navy-bg: #1e3a8a; /* 짙은 파란색 배경 유지 */
-        --color-navy-hover: #1e40af;
-        --color-bg-main: #111827; /* 어두운 기본 배경 */
-        --color-bg-sub: #1f2937; /* 어두운 서브 섹션 배경 */
-        --color-card-bg: #374151; /* 어두운 카드 배경 */
-        --color-text-main: #d1d5db; /* 밝은 본문 텍스트 */
-        --color-text-strong: #f9fafb; /* 매우 밝은 제목 텍스트 */
-        --color-text-muted: #9ca3af; /* 밝은 부가 설명 텍스트 */
-        --color-border: #4b5563; /* 어두운 테두리 색상 */
-        --color-btn-text: #ffffff;
-      }
-
-      body {
-        font-size: 16px; /* 본문 16px 이상 보장 */
-        line-height: 1.6;
-      }
-    </style>
+    <title>star-candy | 포트폴리오</title>
+    <!-- defer 속성 통한 js 연결로 html 분석 후 js 파일 실행시킴-->
+    <!-- 빠른 웹페이지 로딩 및 dom 요소 생성 전 js 실행으로 발생하는 문제 예방 -->
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/main.js" defer></script>
   </head>
-  <body
-    class="bg-bg-main text-text-main antialiased transition-colors duration-300"
-  >
-    <!-- 다크 모드 전환 토글 버튼 -->
-    <div class="fixed top-4 right-4 z-50">
-      <button
-        id="theme-toggle"
-        class="w-12 h-12 flex items-center justify-center rounded-full bg-bg-sub border border-border-main shadow-md hover:shadow-lg transition-all text-xl"
-        aria-label="Toggle Dark Mode"
-      >
-        <span id="theme-icon">🌙</span>
-      </button>
-    </div>
-
-    <!-- 1. Hero (첫 화면) -->
-    <header
-      class="min-h-screen flex flex-col justify-center items-center text-center px-6 bg-bg-sub transition-colors duration-300"
-    >
-      <div class="max-w-4xl mx-auto flex flex-col items-center">
-        <h1
-          class="text-4xl md:text-5xl font-extrabold text-navy-text mb-6 tracking-tight transition-colors duration-300"
-        >
-          star-candy
-        </h1>
-        <h2
-          class="text-xl md:text-2xl font-bold text-text-strong mb-4 break-keep transition-colors duration-300"
-        >
-          웹부터 AI 최적화까지 아우른 경험으로, 한계 없이 신기술을 도입할 AI
-          엔지니어
-        </h2>
-        <p
-          class="text-lg md:text-xl text-text-muted mb-10 break-keep transition-colors duration-300"
-        >
-          웹부터 AI 최적화까지 아우른 경험으로, 한계 없이 신기술을 도입할 AI
-          엔지니어
-        </p>
-        <a
-          href="#projects"
-          class="inline-block bg-navy-bg hover:bg-navy-hover text-btn-text font-semibold py-4 px-8 rounded-full transition duration-300 shadow-lg hover:shadow-xl text-lg"
-        >
-          결과물 보기
-        </a>
-      </div>
+  <body>
+    <!-- 실제 화면 구성 태그-->
+    <!-- 네비게이션 헤더 -->
+    <header id="header">
+      <!-- 제목, 소개 관련 시맨틱 태그-->
+      <nav class="navbar container">
+        <!-- 하이퍼링크 모아둔 내비게이션 시맨틱 태그-->
+        <div class="logo"><a href="#hero">star-candy</a></div>
+        <ul class="nav-menu">
+          <li><a href="#about">About</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#hint-hub">Hint Hub</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#codyssey">Codyssey</a></li>
+        </ul>
+        <div class="nav-controls">
+          <button class="theme-toggle" aria-label="다크 모드 토글">🌙</button>
+          <button class="hamburger" aria-label="메뉴 열기">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </button>
+        </div>
+      </nav>
     </header>
 
-    <!-- 2. About (소개) -->
-    <section id="about" class="py-20 px-6">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2
-          class="text-3xl font-bold text-navy-text mb-8 transition-colors duration-300"
-        >
-          소개
-        </h2>
-        <div
-          class="bg-bg-sub border border-border-main rounded-2xl p-8 shadow-sm inline-block min-w-[300px] transition-colors duration-300"
-        >
-          <ul
-            class="text-lg md:text-xl font-medium text-text-strong space-y-4 transition-colors duration-300"
-          >
-            <li>소프트웨어학부</li>
-            <li>관심 분야 : AI 개발</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- 3. Skills (역량) -->
-    <section
-      id="skills"
-      class="py-20 px-6 bg-bg-sub border-y border-border-main transition-colors duration-300"
-    >
-      <div class="max-w-6xl mx-auto">
-        <h2
-          class="text-3xl font-bold text-navy-text mb-12 text-center transition-colors duration-300"
-        >
-          핵심 역량
-        </h2>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <!-- Card 1 -->
-          <div
-            class="bg-card-bg p-8 rounded-2xl shadow-md border border-border-main hover:shadow-lg transition-all duration-300 flex flex-col justify-center"
-          >
-            <p
-              class="text-lg font-medium text-text-strong break-keep transition-colors duration-300"
-            >
-              새로운 기술이 등장해도 두려워하지 않는다.<br />
-              <span
-                class="text-base text-text-muted mt-3 block transition-colors duration-300"
-                >(처음보는 양자화 기술임에도 결국 적용하여 성능을 개선함.)</span
-              >
-            </p>
-          </div>
-
-          <!-- Card 2 -->
-          <div
-            class="bg-card-bg p-8 rounded-2xl shadow-md border border-border-main hover:shadow-lg transition-all duration-300 flex flex-col justify-center"
-          >
-            <p
-              class="text-lg font-medium text-text-strong break-keep transition-colors duration-300"
-            >
-              어려운 개념이 있더라도 포기하지 않는다.<br />
-              <span
-                class="text-base text-text-muted mt-3 block transition-colors duration-300"
-                >(군대에서 처음보는 가상서버 기능을 어떻게든 구성해낸
-                경험)</span
-              >
-            </p>
-          </div>
-
-          <!-- Card 3 -->
-          <div
-            class="bg-card-bg p-8 rounded-2xl shadow-md border border-border-main hover:shadow-lg transition-all duration-300 flex flex-col justify-center"
-          >
-            <p
-              class="text-lg font-medium text-text-strong break-keep transition-colors duration-300"
-            >
-              보안의 중요성을 아는 엔지니어다.<br />
-              <span
-                class="text-base text-text-muted mt-3 block transition-colors duration-300"
-                >(시스템, 웹 보안에 대한 보고서를 작성해본 경험)</span
-              >
-            </p>
+    <main>
+      <!-- Hero Section -->
+      <!-- 문서의 특정 장 의미하는 section 시맨틱 태그-->
+      <section id="hero" class="section fade-in">
+        <div class="container hero-content">
+          <h1>Hello, I am star-candy</h1>
+          <p>
+            기술의 장벽을 낮추어 사회에 실질적인 가치를 더하는 개발자를
+            꿈꿉니다.<br />
+            AI 모델 최적화와 데이터 파이프라인 구축, 체계적인 협업을 통해 탄탄한
+            코드를 만들어갑니다.
+          </p>
+          <div class="hero-buttons">
+            <a href="#experience" class="btn btn-primary">My Experience</a>
+            <a href="#projects" class="btn btn-secondary">Featured Projects</a>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- 4. Projects (결과물) -->
-    <section id="projects" class="py-24 px-6">
-      <div class="max-w-6xl mx-auto">
-        <h2
-          class="text-3xl font-bold text-navy-text mb-12 text-center transition-colors duration-300"
-        >
-          결과물 허브
-        </h2>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <!-- Project 1 -->
-          <div
-            class="bg-card-bg rounded-2xl shadow-md border border-border-main overflow-hidden hover:shadow-xl transition-all duration-300 p-8 flex flex-col"
-          >
-            <h3
-              class="text-xl font-bold text-navy-text mb-6 border-b border-border-main pb-4 transition-colors duration-300"
-            >
-              Day 2 결과물 자리
-            </h3>
-            <div
-              class="space-y-4 text-base text-text-main flex-grow transition-colors duration-300"
-            >
-              <p>
-                <strong class="text-text-strong transition-colors duration-300"
-                  >문제:</strong
-                >
-              </p>
-              <p>
-                <strong class="text-text-strong transition-colors duration-300"
-                  >내가 한 일:</strong
-                >
-              </p>
-              <p>
-                <strong class="text-text-strong transition-colors duration-300"
-                  >사용 기술:</strong
-                >
-              </p>
-              <p>
-                <strong class="text-text-strong transition-colors duration-300"
-                  >결과:</strong
-                >
-              </p>
+      <!-- About Section -->
+      <!-- 문서의 특정 장 의미하는 section 시맨틱 태그-->
+      <section id="about" class="section fade-in">
+        <div class="container">
+          <h2>About Me</h2>
+          <div class="about-wrapper">
+            <!-- 프로필 이미지 추가 -->
+            <div class="profile-image-container">
+              <img
+                src="https://avatars.githubusercontent.com/u/79005737?v=4"
+                alt="star-candy 프로필 사진"
+              />
             </div>
-          </div>
 
-          <!-- Project 2 -->
-          <div
-            class="bg-card-bg rounded-2xl shadow-md border border-border-main overflow-hidden hover:shadow-xl transition-all duration-300 p-8 flex flex-col"
-          >
-            <h3
-              class="text-xl font-bold text-navy-text mb-6 border-b border-border-main pb-4 transition-colors duration-300"
-            >
-              Day 3 결과물 자리
-            </h3>
-            <div
-              class="space-y-4 text-base text-text-main flex-grow transition-colors duration-300"
-            >
-              <p>
-                <strong class="text-text-strong transition-colors duration-300"
-                  >문제:</strong
-                >
-              </p>
-              <p>
-                <strong class="text-text-strong transition-colors duration-300"
-                  >내가 한 일:</strong
-                >
-              </p>
-              <p>
-                <strong class="text-text-strong transition-colors duration-300"
-                  >사용 기술:</strong
-                >
-              </p>
-              <p>
-                <strong class="text-text-strong transition-colors duration-300"
-                  >결과:</strong
-                >
-              </p>
-            </div>
-          </div>
-
-          <!-- Project 3 -->
-          <div
-            class="bg-card-bg rounded-2xl shadow-md border border-border-main overflow-hidden hover:shadow-xl transition-all duration-300 p-8 flex flex-col"
-          >
-            <h3
-              class="text-xl font-bold text-navy-text mb-6 border-b border-border-main pb-4 transition-colors duration-300"
-            >
-              Day 4 결과물 자리
-            </h3>
-            <div
-              class="space-y-4 text-base text-text-main flex-grow transition-colors duration-300"
-            >
-              <p>
-                <strong class="text-text-strong transition-colors duration-300"
-                  >문제:</strong
-                >
-              </p>
-              <p>
-                <strong class="text-text-strong transition-colors duration-300"
-                  >내가 한 일:</strong
-                >
-              </p>
-              <p>
-                <strong class="text-text-strong transition-colors duration-300"
-                  >사용 기술:</strong
-                >
-              </p>
-              <p>
-                <strong class="text-text-strong transition-colors duration-300"
-                  >결과:</strong
-                >
-              </p>
-            </div>
-          </div>
-
-          <!-- Project 4 -->
-          <div
-            class="bg-card-bg rounded-2xl shadow-md border border-border-main overflow-hidden hover:shadow-xl transition-all duration-300 p-8 flex flex-col"
-          >
-            <h3
-              class="text-xl font-bold text-navy-text mb-6 border-b border-border-main pb-4 transition-colors duration-300"
-            >
-              Day 5 결과물 자리
-            </h3>
-            <div
-              class="space-y-4 text-base text-text-main flex-grow transition-colors duration-300"
-            >
-              <p>
-                <strong class="text-text-strong transition-colors duration-300"
-                  >문제:</strong
-                >
-              </p>
-              <p>
-                <strong class="text-text-strong transition-colors duration-300"
-                  >내가 한 일:</strong
-                >
-              </p>
-              <p>
-                <strong class="text-text-strong transition-colors duration-300"
-                  >사용 기술:</strong
-                >
-              </p>
-              <p>
-                <strong class="text-text-strong transition-colors duration-300"
-                  >결과:</strong
-                >
-              </p>
-            </div>
-          </div>
-
-          <!-- Project 5 -->
-          <div
-            class="bg-card-bg rounded-2xl shadow-md border border-border-main overflow-hidden hover:shadow-xl transition-all duration-300 p-8 flex flex-col md:col-start-2"
-          >
-            <h3
-              class="text-xl font-bold text-navy-text mb-6 border-b border-border-main pb-4 transition-colors duration-300"
-            >
-              Day 6 결과물 자리
-            </h3>
-            <div
-              class="space-y-4 text-base text-text-main flex-grow transition-colors duration-300"
-            >
-              <p>
-                <strong class="text-text-strong transition-colors duration-300"
-                  >문제:</strong
-                >
-              </p>
-              <p>
-                <strong class="text-text-strong transition-colors duration-300"
-                  >내가 한 일:</strong
-                >
-              </p>
-              <p>
-                <strong class="text-text-strong transition-colors duration-300"
-                  >사용 기술:</strong
-                >
-              </p>
-              <p>
-                <strong class="text-text-strong transition-colors duration-300"
-                  >결과:</strong
-                >
-              </p>
+            <!-- 기존 상세 정보 -->
+            <div class="about-details">
+              <div class="about-grid">
+                <article class="about-card">
+                  <h3>🎓 Education</h3>
+                  <p><strong>소프트웨어학부</strong> 재학 (2021.03 ~)</p>
+                  <p>
+                    <strong>코디세이 올인원 1기</strong> (2026.04 ~ 2026.09)
+                  </p>
+                  <p>
+                    <strong>EST AI Challengers 2기</strong> (2026.08 ~ 2026.09)
+                  </p>
+                </article>
+                <article class="about-card">
+                  <h3>📜 Certifications & Awards</h3>
+                  <a href="file/AICE_자격증.pdf" target="_blank">
+                    <p><strong>AICE Associate</strong> 자격증 취득 (2026)</p>
+                  </a>
+                  <a href="file/LG_AI_해커톤_수료증.pdf" target="_blank">
+                    <p><strong>LG Aimers 8기</strong> 해커톤 수료</p>
+                  </a>
+                  <a
+                    href="file/EST_AI_Challengers_2기_장려상.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <p>
+                      <strong>EST AI Challengers 2기</strong> 해커톤 수료 및
+                      장려상 수상
+                    </p>
+                  </a>
+                </article>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- 5. Contact (연락) -->
-    <section
-      id="contact"
-      class="py-24 px-6 bg-navy-bg text-btn-text text-center transition-colors duration-300"
-    >
-      <div class="max-w-3xl mx-auto flex flex-col items-center">
-        <h2 class="text-3xl font-bold mb-6">연락하기</h2>
-        <p class="text-lg mb-8 text-gray-300 dark:text-gray-400">
-          새로운 기술을 향한 도전에 함께할 기회를 기다립니다.
+      <!-- Experience Section (상세 이력) -->
+      <!-- 문서의 특정 장 의미하는 section 시맨틱 태그-->
+      <section id="experience" class="section fade-in bg-light">
+        <div class="container">
+          <h2>Core Experiences</h2>
+          <div class="grid-container">
+            <!-- AI -->
+            <!-- 문서와 독립적인 컨텐츠인 article 시맨틱 태그-->
+            <article class="card">
+              <h3>🤖 AI & LLM</h3>
+              <ul>
+                <li>
+                  <a href="file/ai모델_양자화_및_성능_개선.pdf" target="_blank">
+                    <strong>LG EXAONE 모델 최적화:</strong> EXAONE-4.0-1.2B
+                    모델을 대상으로 W4A16 양자화 및 다분야 데이터셋(MANTA,
+                    GSM8K, MMLU 등) 캘리브레이션을 적용해 용량 축소 및 추론 성능
+                    개선.
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/star-candy/Est_Map"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <strong>피해가(街)! 서비스 구현:</strong> OSM 보행망과
+                    공공데이터(기후·안전·건물 높이)를 결합해 Q-Learning 및
+                    Weighted A*로 맞춤 경로를 탐색하고, Gemini 기반 이동 분석
+                    리포트를 제공하는 웹 서비스 개발.
+                  </a>
+                </li>
+              </ul>
+            </article>
+
+            <!-- Security -->
+            <article class="card">
+              <h3>🛡️ Information Security</h3>
+              <ul>
+                <li>
+                  <a href="file/최신정보이론 시스템.pdf" target="_blank">
+                    <strong>시스템 보안:</strong> GDB 분석을 통해 Buffer
+                    Overflow, Off-by-one, Integer Overflow, Format String Bug 등
+                    메모리 취약점을 악용한 Exploit 코드 개발.
+                  </a>
+                </li>
+                <li>
+                  <a href="file/최신정보이론 웹.pdf" target="_blank">
+                    <strong>웹 보안:</strong> 쿠키 탈취(XSS), CSRF를 통한 권한
+                    위조, SQL Injection 방어 우회, XSS 프로필 웜 등 다양한 웹
+                    공격 원리 분석 및 구현.
+                  </a>
+                </li>
+              </ul>
+            </article>
+
+            <!-- Collaboration -->
+            <article class="card">
+              <h3>🤝 Software Collaboration</h3>
+              <ul>
+                <li>
+                  <a
+                    href="https://github.com/cnslab-classroom/team-project-11"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <strong>자바 팀 프로젝트 리더:</strong> Hugging Face API
+                    기반 AI 이미지 게시판 구현. MVC 패턴 도입 및 상세 기술
+                    문서화로 작업 영역을 분리하여 Git 병합 충돌(Conflict)
+                    최소화.
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/codyssey-git-workflow/codyssey_git_workflow"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <strong>GitHub Flow 협업 실습:</strong> 이슈 생성, 브랜치
+                    전략 수립, Pull Request 기반 코드 리뷰 및 충돌 해결 등 실무
+                    중심의 Git 협업 워크플로우 체득.
+                  </a>
+                </li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Hint 결과물 허브 Section -->
+      <section id="hint-hub" class="section fade-in">
+        <div class="container">
+          <h2>Hint 결과물 허브</h2>
+          <div class="grid-container">
+            <!-- Day 2 -->
+            <article class="card">
+              <h3>Day 2 결과물 자리</h3>
+              <div
+                class="hub-content"
+                style="margin-top: 1rem; line-height: 1.8"
+              >
+                <p><strong>문제:</strong></p>
+                <p><strong>내가 한 일:</strong></p>
+                <p><strong>사용 기술:</strong></p>
+                <p><strong>결과:</strong></p>
+              </div>
+            </article>
+
+            <!-- Day 3 -->
+            <article class="card">
+              <h3>Day 3 결과물 자리</h3>
+              <div
+                class="hub-content"
+                style="margin-top: 1rem; line-height: 1.8"
+              >
+                <p><strong>문제:</strong></p>
+                <p><strong>내가 한 일:</strong></p>
+                <p><strong>사용 기술:</strong></p>
+                <p><strong>결과:</strong></p>
+              </div>
+            </article>
+
+            <!-- Day 4 -->
+            <article class="card">
+              <h3>Day 4 결과물 자리</h3>
+              <div
+                class="hub-content"
+                style="margin-top: 1rem; line-height: 1.8"
+              >
+                <p><strong>문제:</strong></p>
+                <p><strong>내가 한 일:</strong></p>
+                <p><strong>사용 기술:</strong></p>
+                <p><strong>결과:</strong></p>
+              </div>
+            </article>
+
+            <!-- Day 5 -->
+            <article class="card">
+              <h3>Day 5 결과물 자리</h3>
+              <div
+                class="hub-content"
+                style="margin-top: 1rem; line-height: 1.8"
+              >
+                <p><strong>문제:</strong></p>
+                <p><strong>내가 한 일:</strong></p>
+                <p><strong>사용 기술:</strong></p>
+                <p><strong>결과:</strong></p>
+              </div>
+            </article>
+
+            <!-- Day 6 -->
+            <article class="card">
+              <h3>Day 6 결과물 자리</h3>
+              <div
+                class="hub-content"
+                style="margin-top: 1rem; line-height: 1.8"
+              >
+                <p><strong>문제:</strong></p>
+                <p><strong>내가 한 일:</strong></p>
+                <p><strong>사용 기술:</strong></p>
+                <p><strong>결과:</strong></p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Featured Projects Section -->
+      <section id="projects" class="section fade-in">
+        <div class="container">
+          <h2>Featured Projects</h2>
+          <p>주요 개발 프로젝트의 GitHub 저장소 목록입니다.</p>
+          <div id="projects-container" class="grid-container">
+            <article class="card">
+              <h3>
+                <a
+                  href="https://github.com/star-candy/Est_Map"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >피해가(街)! - 맞춤 보행 내비게이션</a
+                >
+              </h3>
+              <p style="margin: 0.5rem 0; color: var(--secondary-color)">
+                기후·안전 공공데이터와 강화학습(Q-Learning), Gemini LLM을 결합해
+                사계절 쾌적 보행 경로와 탄소 절감 리포트를 제공하는 웹
+                서비스입니다.
+              </p>
+              <span style="font-size: 0.85rem; font-weight: bold"
+                >🔵 Python / Streamlit / LangChain</span
+              >
+            </article>
+
+            <article class="card">
+              <h3>
+                <a
+                  href="https://github.com/cnslab-classroom/team-project-11"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >자바 팀 프로젝트 - 꿈 일기 게시판</a
+                >
+              </h3>
+              <p style="margin: 0.5rem 0; color: var(--secondary-color)">
+                MVC 패턴과 기술 문서화를 바탕으로 협업하여, 생성형 AI API로
+                사용자의 꿈 일기를 이미지화하고 공유하는 게시판 프로그램입니다.
+              </p>
+              <span style="font-size: 0.85rem; font-weight: bold"
+                >🟠 Java / Swing / Hugging Face API</span
+              >
+            </article>
+
+            <article class="card">
+              <h3>
+                <a
+                  href="https://github.com/star-candy/B7-1_project_codyssey"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >B7-1 웹 챗봇 협업 프로젝트</a
+                >
+              </h3>
+              <p style="margin: 0.5rem 0; color: var(--secondary-color)">
+                Next.js·FastAPI·SQLite를 기반으로 협업하여 구현한 Gemini 웹
+                챗봇입니다. 회원 인증, 최근 대화 맥락을 반영한 AI 응답, 대화
+                기록 저장·조회 기능을 제공합니다.
+              </p>
+              <span style="font-size: 0.85rem; font-weight: bold"
+                >🔵 Next.js / FastAPI / SQLite / Gemini API</span
+              >
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Codyssey Section -->
+      <section id="codyssey" class="section fade-in bg-light">
+        <div class="container">
+          <h2>Codyssey Projects</h2>
+          <p>코디세이 올인원 과정에서 수행한 과제 및 실습 저장소 목록입니다.</p>
+          <div id="codyssey-container" class="grid-container">
+            <!-- JavaScript로 codyssey 관련 저장소 동적 렌더링 -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <!-- 꼬리말 관련 시맨틱 태그-->
+    <footer>
+      <div class="container footer-content">
+        <p>&copy; 2026 star-candy. All Rights Reserved.</p>
+        <p class="footer-contact">
+          Contact:
+          <a
+            href="mailto:el0710@naver.com"
+            style="color: var(--primary-color); text-decoration: underline"
+            >el0710@naver.com</a
+          >
         </p>
-
-        <!-- 추가된 이메일 텍스트 노출부 -->
-        <p class="text-xl md:text-2xl font-bold mb-10 tracking-wide">
-          el0710@naver.com
-        </p>
-
-        <a
-          href="mailto:el0710@naver.com"
-          class="inline-block bg-bg-main text-navy-text font-bold py-4 px-10 rounded-full transition duration-300 shadow-lg hover:shadow-xl hover:opacity-90 text-lg"
-        >
-          이메일 보내기
-        </a>
+        <div class="social-links">
+          <a
+            href="https://github.com/star-candy"
+            target="_blank"
+            rel="noopener noreferrer"
+            >GitHub</a
+          >
+        </div>
       </div>
-    </section>
+    </footer>
 
-    <!-- 다크 모드 제어 스크립트 -->
-    <script>
-      const themeToggleBtn = document.getElementById("theme-toggle");
-      const themeIcon = document.getElementById("theme-icon");
-      const htmlElement = document.documentElement;
-
-      // 초기 로드 시 시스템 설정 또는 저장된 테마 확인
-      if (
-        localStorage.getItem("theme") === "dark" ||
-        (!("theme" in localStorage) &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches)
-      ) {
-        htmlElement.classList.add("dark");
-        themeIcon.textContent = "☀️";
-      } else {
-        htmlElement.classList.remove("dark");
-        themeIcon.textContent = "🌙";
-      }
-
-      // 토글 버튼 클릭 이벤트
-      themeToggleBtn.addEventListener("click", () => {
-        htmlElement.classList.toggle("dark");
-        if (htmlElement.classList.contains("dark")) {
-          localStorage.setItem("theme", "dark");
-          themeIcon.textContent = "☀️";
-        } else {
-          localStorage.setItem("theme", "light");
-          themeIcon.textContent = "🌙";
-        }
-      });
-    </script>
+    <!-- Scroll Top Button -->
+    <button id="scroll-top" class="hidden" aria-label="맨 위로 가기">↑</button>
   </body>
 </html>
