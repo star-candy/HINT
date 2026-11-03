@@ -24,6 +24,11 @@ themeToggleBtn.addEventListener('click', () => {
         localStorage.setItem('theme', 'dark');
         themeToggleBtn.textContent = '☀️';
     }
+    
+    // 배경 캔버스 테마 색상 동기화
+    if (window.updateBgCanvasTheme) {
+        window.updateBgCanvasTheme();
+    }
 });
 
 // ==========================================
@@ -43,7 +48,10 @@ document.querySelectorAll('.nav-menu a').forEach(link => {
     link.addEventListener('click', (e) => {
         e.preventDefault();
         const targetId = link.getAttribute('href').substring(1);
-        document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+            targetEl.scrollIntoView({ behavior: 'smooth' });
+        }
 
         hamburger.classList.remove('active');
         navMenu.classList.remove('active');
@@ -85,7 +93,156 @@ document.querySelectorAll('.fade-in').forEach(section => {
 });
 
 // ==========================================
-// 4. Codyssey GitHub 저장소 연동
+// 4. 인터랙티브 AI 신경망 파티클 캔버스 배경
+// ==========================================
+const initBackgroundCanvas = () => {
+    const canvas = document.getElementById('bg-canvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    let isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    
+    // 테마별 색상 설정
+    let particleColor = isDark ? 'rgba(96, 165, 250, ' : 'rgba(79, 70, 229, ';
+    let lineColor = isDark ? 'rgba(147, 197, 253, ' : 'rgba(99, 102, 241, ';
+    let maxLineDistance = 135;
+    let maxMouseDistance = 160;
+
+    window.updateBgCanvasTheme = () => {
+        isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        particleColor = isDark ? 'rgba(96, 165, 250, ' : 'rgba(79, 70, 229, ';
+        lineColor = isDark ? 'rgba(147, 197, 253, ' : 'rgba(99, 102, 241, ';
+    };
+
+    const mouse = { x: null, y: null };
+
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+    });
+
+    window.addEventListener('mouseleave', () => {
+        mouse.x = null;
+        mouse.y = null;
+    });
+
+    // 화면 크기 반응형 파티클 수 계산
+    const getParticleCount = () => {
+        if (width < 600) return 30;
+        if (width < 1024) return 45;
+        return 65;
+    };
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.vx = (Math.random() - 0.5) * 0.75;
+            this.vy = (Math.random() - 0.5) * 0.75;
+            this.radius = Math.random() * 2 + 1.2;
+            this.baseAlpha = Math.random() * 0.4 + 0.35;
+        }
+
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+
+            if (this.x < 0 || this.x > width) this.vx *= -1;
+            if (this.y < 0 || this.y > height) this.vy *= -1;
+
+            // 마우스 인터랙션: 커서 주변에서 부드럽게 유영
+            if (mouse.x !== null && mouse.y !== null) {
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < maxMouseDistance) {
+                    const force = (maxMouseDistance - dist) / maxMouseDistance;
+                    this.x += (dx / dist) * force * 0.8;
+                    this.y += (dy / dist) * force * 0.8;
+                }
+            }
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = `${particleColor}${this.baseAlpha})`;
+            ctx.fill();
+        }
+    }
+
+    let particles = [];
+    const createParticles = () => {
+        particles = [];
+        const count = getParticleCount();
+        for (let i = 0; i < count; i++) {
+            particles.push(new Particle());
+        }
+    };
+    createParticles();
+
+    // 창 크기 변경 시 리사이즈
+    window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        createParticles();
+    });
+
+    // 애니메이션 루프
+    const animate = () => {
+        ctx.clearRect(0, 0, width, height);
+
+        // 파티클 간 연결선 그리기
+        for (let i = 0; i < particles.length; i++) {
+            particles[i].update();
+            particles[i].draw();
+
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < maxLineDistance) {
+                    const alpha = (1 - dist / maxLineDistance) * (isDark ? 0.32 : 0.22);
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.strokeStyle = `${lineColor}${alpha})`;
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                }
+            }
+
+            // 마우스와 파티클 간 연결선
+            if (mouse.x !== null && mouse.y !== null) {
+                const mdx = mouse.x - particles[i].x;
+                const mdy = mouse.y - particles[i].y;
+                const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+                if (mdist < maxMouseDistance) {
+                    const malpha = (1 - mdist / maxMouseDistance) * (isDark ? 0.45 : 0.3);
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.strokeStyle = `${lineColor}${malpha})`;
+                    ctx.lineWidth = 1.2;
+                    ctx.stroke();
+                }
+            }
+        }
+
+        requestAnimationFrame(animate);
+    };
+
+    animate();
+};
+
+initBackgroundCanvas();
+
+// ==========================================
+// 5. Codyssey GitHub 저장소 연동
 // ==========================================
 const codysseyContainer = document.getElementById('codyssey-container');
 const GITHUB_USERNAME = 'star-candy';

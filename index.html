@@ -12,6 +12,20 @@
     <script src="js/main.js" defer></script>
   </head>
   <body>
+    <!-- 세련된 앰비언트 글로우, 인터랙티브 캔버스 & 테크 데코 배경 레이어 -->
+    <div class="bg-ambient-layer" aria-hidden="true">
+      <canvas id="bg-canvas"></canvas>
+      <div class="bg-grid-pattern"></div>
+      <div class="ambient-beam"></div>
+      <div class="ambient-orb ambient-orb-1"></div>
+      <div class="ambient-orb ambient-orb-2"></div>
+      <div class="ambient-orb ambient-orb-3"></div>
+      <div class="floating-shape shape-1">✦</div>
+      <div class="floating-shape shape-2">⬡</div>
+      <div class="floating-shape shape-3">▲</div>
+      <div class="floating-shape shape-4">✦</div>
+      <div class="floating-shape shape-5">⬡</div>
+    </div>
     <!-- 실제 화면 구성 태그-->
     <!-- 네비게이션 헤더 -->
     <header id="header">
@@ -42,7 +56,11 @@
       <!-- 문서의 특정 장 의미하는 section 시맨틱 태그-->
       <section id="hero" class="section fade-in">
         <div class="container hero-content">
-          <h1>Hello, I am star-candy</h1>
+          <div class="hero-badge">
+            <span class="badge-dot"></span>
+            <span>AI & Software Engineer</span>
+          </div>
+          <h1>Hello, I am <span class="gradient-text">star-candy</span></h1>
           <p>
             기술의 장벽을 낮추어 사회에 실질적인 가치를 더하는 개발자를
             꿈꿉니다.<br />
