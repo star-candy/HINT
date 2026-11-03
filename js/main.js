@@ -100,16 +100,28 @@ const initBackgroundCanvas = () => {
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = window.innerHeight);
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+
+    const resize = () => {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        ctx.setTransform(1, 0, 0, 1, 0, 0); // 기존 스케일 리셋
+        ctx.scale(dpr, dpr);
+        createParticles();
+    };
 
     let isDark = document.documentElement.getAttribute('data-theme') === 'dark';
     
-    // 테마별 색상 설정
+    // 테마별 색상 설정 (라이트 모드에서도 도트와 선이 확실하게 보이도록 가시성 강화)
     let particleColor = isDark ? 'rgba(96, 165, 250, ' : 'rgba(79, 70, 229, ';
     let lineColor = isDark ? 'rgba(147, 197, 253, ' : 'rgba(99, 102, 241, ';
-    let maxLineDistance = 135;
-    let maxMouseDistance = 160;
+    let maxLineDistance = 140;
+    let maxMouseDistance = 170;
 
     window.updateBgCanvasTheme = () => {
         isDark = document.documentElement.getAttribute('data-theme') === 'dark';
@@ -129,21 +141,33 @@ const initBackgroundCanvas = () => {
         mouse.y = null;
     });
 
+    window.addEventListener('touchmove', (e) => {
+        if (e.touches && e.touches.length > 0) {
+            mouse.x = e.touches[0].clientX;
+            mouse.y = e.touches[0].clientY;
+        }
+    }, { passive: true });
+
+    window.addEventListener('touchend', () => {
+        mouse.x = null;
+        mouse.y = null;
+    });
+
     // 화면 크기 반응형 파티클 수 계산
     const getParticleCount = () => {
-        if (width < 600) return 30;
-        if (width < 1024) return 45;
-        return 65;
+        if (width < 600) return 32;
+        if (width < 1024) return 48;
+        return 70;
     };
 
     class Particle {
         constructor() {
             this.x = Math.random() * width;
             this.y = Math.random() * height;
-            this.vx = (Math.random() - 0.5) * 0.75;
-            this.vy = (Math.random() - 0.5) * 0.75;
-            this.radius = Math.random() * 2 + 1.2;
-            this.baseAlpha = Math.random() * 0.4 + 0.35;
+            this.vx = (Math.random() - 0.5) * 0.8;
+            this.vy = (Math.random() - 0.5) * 0.8;
+            this.radius = Math.random() * 2.2 + 1.2;
+            this.baseAlpha = Math.random() * 0.45 + 0.4;
         }
 
         update() {
@@ -153,15 +177,15 @@ const initBackgroundCanvas = () => {
             if (this.x < 0 || this.x > width) this.vx *= -1;
             if (this.y < 0 || this.y > height) this.vy *= -1;
 
-            // 마우스 인터랙션: 커서 주변에서 부드럽게 유영
+            // 마우스 인터랙션: 커서 주변에서 부드럽게 반응
             if (mouse.x !== null && mouse.y !== null) {
                 const dx = mouse.x - this.x;
                 const dy = mouse.y - this.y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
                 if (dist < maxMouseDistance) {
                     const force = (maxMouseDistance - dist) / maxMouseDistance;
-                    this.x += (dx / dist) * force * 0.8;
-                    this.y += (dy / dist) * force * 0.8;
+                    this.x += (dx / dist) * force * 1.1;
+                    this.y += (dy / dist) * force * 1.1;
                 }
             }
         }
@@ -182,16 +206,11 @@ const initBackgroundCanvas = () => {
             particles.push(new Particle());
         }
     };
-    createParticles();
 
-    // 창 크기 변경 시 리사이즈
-    window.addEventListener('resize', () => {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-        createParticles();
-    });
+    resize();
+    window.addEventListener('resize', resize);
 
-    // 애니메이션 루프
+    // 고성능 애니메이션 루프
     const animate = () => {
         ctx.clearRect(0, 0, width, height);
 
@@ -206,7 +225,7 @@ const initBackgroundCanvas = () => {
                 const dist = Math.sqrt(dx * dx + dy * dy);
 
                 if (dist < maxLineDistance) {
-                    const alpha = (1 - dist / maxLineDistance) * (isDark ? 0.32 : 0.22);
+                    const alpha = (1 - dist / maxLineDistance) * (isDark ? 0.38 : 0.28);
                     ctx.beginPath();
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);
@@ -216,18 +235,18 @@ const initBackgroundCanvas = () => {
                 }
             }
 
-            // 마우스와 파티클 간 연결선
+            // 마우스/터치와 파티클 간 연결선
             if (mouse.x !== null && mouse.y !== null) {
                 const mdx = mouse.x - particles[i].x;
                 const mdy = mouse.y - particles[i].y;
                 const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
                 if (mdist < maxMouseDistance) {
-                    const malpha = (1 - mdist / maxMouseDistance) * (isDark ? 0.45 : 0.3);
+                    const malpha = (1 - mdist / maxMouseDistance) * (isDark ? 0.55 : 0.4);
                     ctx.beginPath();
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(mouse.x, mouse.y);
                     ctx.strokeStyle = `${lineColor}${malpha})`;
-                    ctx.lineWidth = 1.2;
+                    ctx.lineWidth = 1.3;
                     ctx.stroke();
                 }
             }
@@ -239,7 +258,11 @@ const initBackgroundCanvas = () => {
     animate();
 };
 
-initBackgroundCanvas();
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initBackgroundCanvas);
+} else {
+    initBackgroundCanvas();
+}
 
 // ==========================================
 // 5. Codyssey GitHub 저장소 연동

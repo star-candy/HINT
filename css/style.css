@@ -3,15 +3,15 @@
 ========================================== */
 :root {
     --bg-color: #f8fafc; /* 세련되고 부드러운 슬레이트 화이트 배경 */
-    --bg-light-start: rgba(241, 245, 249, 0.7);
-    --bg-light-end: rgba(226, 232, 240, 0.4);
+    --bg-light-start: rgba(241, 245, 249, 0.55);
+    --bg-light-end: rgba(226, 232, 240, 0.3);
     --text-color: #1e293b; /* 딥 네이비 텍스트 */
     --text-muted: #64748b; /* 보조 설명 텍스트 */
     --primary-color: #2563eb; /* 브랜드 블루 */
     --primary-gradient: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #06b6d4 100%);
     --secondary-color: #475569;
-    --nav-bg: rgba(255, 255, 255, 0.85);
-    --card-bg: rgba(255, 255, 255, 0.82);
+    --nav-bg: rgba(255, 255, 255, 0.88);
+    --card-bg: rgba(255, 255, 255, 0.85);
     --card-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
     --card-shadow-hover: 0 16px 32px -4px rgba(37, 99, 235, 0.14), 0 4px 12px -2px rgba(15, 23, 42, 0.08);
     --border-color: rgba(226, 232, 240, 0.85);
@@ -20,10 +20,10 @@
     --success-color: #10b981;
 
     /* 배경 디자인 전용 변수 (라이트 모드) */
-    --grid-line-color: rgba(99, 102, 241, 0.05);
-    --grid-dot-color: rgba(79, 70, 229, 0.22);
-    --beam-glow: rgba(99, 102, 241, 0.22);
-    --shape-color: rgba(99, 102, 241, 0.4);
+    --grid-line-color: rgba(99, 102, 241, 0.06);
+    --grid-dot-color: rgba(79, 70, 229, 0.25);
+    --beam-glow: rgba(99, 102, 241, 0.25);
+    --shape-color: rgba(99, 102, 241, 0.45);
     --shape-glow: rgba(99, 102, 241, 0.25);
     --ambient-glow-1: rgba(59, 130, 246, 0.28);
     --ambient-glow-2: rgba(168, 85, 247, 0.22);
@@ -32,23 +32,23 @@
 
 [data-theme="dark"] {
     --bg-color: #0b0f19; /* 깊이감 있는 딥 코스믹 블랙/네이비 */
-    --bg-light-start: rgba(17, 24, 39, 0.7);
-    --bg-light-end: rgba(15, 23, 42, 0.45);
+    --bg-light-start: rgba(17, 24, 39, 0.55);
+    --bg-light-end: rgba(15, 23, 42, 0.35);
     --text-color: #f1f5f9;
     --text-muted: #94a3b8;
     --primary-color: #60a5fa;
     --primary-gradient: linear-gradient(135deg, #60a5fa 0%, #c084fc 50%, #38bdf8 100%);
     --secondary-color: #94a3b8;
-    --nav-bg: rgba(11, 15, 25, 0.85);
-    --card-bg: rgba(20, 28, 46, 0.75);
+    --nav-bg: rgba(11, 15, 25, 0.88);
+    --card-bg: rgba(20, 28, 46, 0.78);
     --card-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(255, 255, 255, 0.05);
     --card-shadow-hover: 0 16px 36px -4px rgba(96, 165, 250, 0.25), 0 0 0 1px rgba(96, 165, 250, 0.4);
     --border-color: rgba(51, 65, 85, 0.65);
     --border-hover: rgba(129, 140, 248, 0.55);
 
     /* 배경 디자인 전용 변수 (다크 모드) */
-    --grid-line-color: rgba(255, 255, 255, 0.04);
-    --grid-dot-color: rgba(96, 165, 250, 0.28);
+    --grid-line-color: rgba(255, 255, 255, 0.05);
+    --grid-dot-color: rgba(96, 165, 250, 0.3);
     --beam-glow: rgba(99, 102, 241, 0.38);
     --shape-color: rgba(147, 197, 253, 0.45);
     --shape-glow: rgba(96, 165, 250, 0.35);
@@ -66,18 +66,22 @@
     box-sizing: border-box;
 }
 
+html {
+    background-color: var(--bg-color);
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: var(--bg-color);
+    background-color: transparent; /* body 배경을 투명하게 하여 bg-ambient-layer가 가려지지 않음! */
     color: var(--text-color);
     line-height: 1.6;
-    transition: background-color 0.3s, color 0.3s;
+    transition: color 0.3s;
     position: relative;
     overflow-x: hidden;
     min-height: 100vh;
 }
 
-/* 고정 앰비언트 글로우 & 인터랙티브 배경 레이어 */
+/* 고정 앰비언트 글로우 & 인터랙티브 배경 레이어 (z-index: 0으로 설정하여 body 뒤에 묻히는 문제 해결) */
 .bg-ambient-layer {
     position: fixed;
     top: 0;
@@ -85,8 +89,16 @@ body {
     width: 100vw;
     height: 100vh;
     pointer-events: none;
-    z-index: -1;
+    z-index: 0; /* z-index: -1이 아닌 0으로 안전하게 유지 */
     overflow: hidden;
+    background-color: var(--bg-color); /* 실제 기본 배경색을 레이어 내부에서 채움 */
+    transition: background-color 0.3s;
+}
+
+/* 본문 콘텐츠 레이어: 배경 레이어(z-index: 0)보다 상위(z-index: 2)에 명확히 위치 */
+#header, main, footer, #scroll-top {
+    position: relative;
+    z-index: 2;
 }
 
 /* 인터랙티브 AI 신경망 파티클 캔버스 */
@@ -236,6 +248,8 @@ li { list-style: none; }
 /* 부드럽게 전환되는 섹션 배경 */
 .bg-light {
     background: linear-gradient(180deg, var(--bg-light-start) 0%, var(--bg-light-end) 100%);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border-top: 1px solid var(--border-color);
     border-bottom: 1px solid var(--border-color);
 }
