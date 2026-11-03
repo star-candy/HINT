@@ -681,3 +681,82 @@ footer {
 .footer-content { display: flex; flex-direction: column; gap: 0.8rem; }
 .footer-contact a { transition: color 0.2s; }
 .footer-contact a:hover { color: var(--primary-color); }
+
+/* ==========================================
+   Hint Hub Spec Cards (결과물 허브 가독성 개선)
+========================================== */
+.hub-content {
+    margin-top: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.hub-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.hub-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    letter-spacing: -0.01em;
+}
+
+.hub-desc {
+    font-size: 0.92rem;
+    color: var(--text-color);
+    line-height: 1.5;
+    word-break: keep-all;
+}
+
+/* 기술 스택 칩(태그) */
+.hub-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.15rem;
+}
+
+.hub-tag {
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    background: var(--bg-light-start);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    display: inline-flex;
+    align-items: center;
+}
+
+/* 결과 링크 버튼 */
+.hub-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.55rem 1.1rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: var(--primary-gradient);
+    text-decoration: none;
+    box-shadow: 0 3px 10px rgba(37, 99, 235, 0.25);
+    transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+    margin-top: 0.3rem;
+    width: fit-content;
+}
+
+.hub-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+    opacity: 0.95;
+    color: #ffffff;
+}
